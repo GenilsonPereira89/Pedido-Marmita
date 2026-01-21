@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+1<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -139,23 +139,18 @@
 
     if (obs === "") obs = "Completa";
 
-    const mensagem =
-`🍛 *Pedido de Marmita*
+   const mensagem =
+`*PEDIDO DE MARMITA*
 
-📅 Data: ${dataFormatada}
+*Data:* ${dataFormatada}
 
-👤 Nome: ${nome}
-🍽️ Opção: ${opcao}
-📦 Tamanho: ${tamanhoTexto}
-🔢 Quantidade: ${quantidade}
-📝 Observação: ${obs}
+*Nome:* ${nome}
+*Opção:* ${opcao}
+*Tamanho:* ${tamanhoTexto}
+*Quantidade:* ${quantidade}
+*Observação:* ${obs}
 
-${document.getElementById("total").innerText}`;
-
-    const linkWhats =
-      "https://wa.me/?text=" + encodeURIComponent(mensagem);
-
-    window.open(linkWhats, "_blank");
+*Total:* ${document.getElementById("total").innerText.replace("💰 ", "")}`;
   }
 
   calcularTotal();
@@ -163,3 +158,4 @@ ${document.getElementById("total").innerText}`;
 
 </body>
 </html>
+

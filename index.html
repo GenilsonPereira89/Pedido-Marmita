@@ -88,20 +88,20 @@
   <label>Nome:</label>
   <input type="text" id="nome" placeholder="Digite seu nome">
 
-  <label>Opcão:</label>
-  <input type="text" id="opcao" placeholder="Ex: Frango, Bife de porco, Strogonoff...">
+  <label>Opção:</label>
+  <input type="text" id="opcao" placeholder="Ex: Frango, Bife, Strogonoff">
 
   <label>Tamanho:</label>
   <select id="tamanho" onchange="calcularTotal()">
-    <option value="18">Padrao – R$18,00</option>
+    <option value="18">Padrão – R$18,00</option>
     <option value="14">Menor – R$14,00</option>
   </select>
 
   <label>Quantidade:</label>
   <input type="number" id="quantidade" value="1" min="1" onchange="calcularTotal()">
 
-  <label>Observacão:</label>
-  <textarea id="obs" rows="3" placeholder="Ex: sem feijao, pouco sal..."></textarea>
+  <label>Observação:</label>
+  <textarea id="obs" rows="3" placeholder="Ex: sem feijão, pouco sal"></textarea>
 
   <div class="total" id="total"></div>
 
@@ -109,11 +109,10 @@
 </div>
 
 <script>
-  // Data automatica
+  // Data automática
   const hoje = new Date();
   const dataFormatada = hoje.toLocaleDateString("pt-BR");
-  document.getElementById("dataAtual").innerText =
-    "Data: " + dataFormatada;
+  document.getElementById("dataAtual").innerText = "Data: " + dataFormatada;
 
   function calcularTotal() {
     const preco = Number(document.getElementById("tamanho").value);
@@ -132,12 +131,11 @@
       return;
     }
 
-    const opcao = document.getElementById("opcao").value;
+    const opcao = document.getElementById("opcao").value || "Não informado";
     const tamanhoSelect = document.getElementById("tamanho");
     const tamanhoTexto = tamanhoSelect.options[tamanhoSelect.selectedIndex].text;
     const quantidade = document.getElementById("quantidade").value;
     let obs = document.getElementById("obs").value.trim();
-
     if (obs === "") obs = "Completa";
 
     const totalTexto = document
@@ -145,17 +143,21 @@
       .innerText.replace("Total: ", "");
 
     const mensagem =
-`*PEDIDO DE MARMITA*
+`━━━━━━━━━━━━━━━━━━
+*PEDIDO DE MARMITA*
+━━━━━━━━━━━━━━━━━━
 
 *Data:* ${dataFormatada}
 
 *Nome:* ${nome}
-*Opcão:* ${opcao}
+*Opção:* ${opcao}
 *Tamanho:* ${tamanhoTexto}
 *Quantidade:* ${quantidade}
-*Observacão:* ${obs}
+*Observação:* ${obs}
 
-*Total:* ${totalTexto}`;
+━━━━━━━━━━━━━━━━━━
+*TOTAL:* ${totalTexto}
+━━━━━━━━━━━━━━━━━━`;
 
     const url = "https://wa.me/?text=" + encodeURIComponent(mensagem);
     window.open(url, "_blank");
@@ -166,6 +168,8 @@
 
 </body>
 </html>
+
+
 
 
 

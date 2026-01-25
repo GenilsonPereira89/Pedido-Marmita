@@ -50,12 +50,43 @@
       box-sizing: border-box;
     }
 
-    input[type="number"] {
-      text-align: center;
-    }
-
     textarea {
       resize: none;
+    }
+
+    /* Quantidade com botões */
+    .qtd-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .qtd-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 22px;
+      font-weight: bold;
+      background: #1E90FF;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .qtd-btn:active {
+      opacity: 0.8;
+    }
+
+    .qtd-valor {
+      flex: 1;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f9f9f9;
     }
 
     .total {
@@ -65,7 +96,7 @@
       text-align: center;
     }
 
-    button {
+    button.enviar {
       background: #25d366;
       color: #fff;
       border: none;
@@ -75,7 +106,7 @@
       cursor: pointer;
     }
 
-    button:active {
+    button.enviar:active {
       opacity: 0.9;
     }
   </style>
@@ -101,26 +132,37 @@
   </select>
 
   <label>Quantidade:</label>
-  <input type="number" id="quantidade" value="1" min="1" onchange="calcularTotal()">
+  <div class="qtd-container">
+    <button class="qtd-btn" onclick="alterarQtd(-1)">−</button>
+    <div class="qtd-valor" id="quantidade">1</div>
+    <button class="qtd-btn" onclick="alterarQtd(1)">+</button>
+  </div>
 
   <label>Observação:</label>
   <textarea id="obs" rows="3" placeholder="Ex: Sem arroz, feijão, macarronada, etc"></textarea>
 
   <div class="total" id="total"></div>
 
-  <button onclick="enviarPedido()">Enviar pedido</button>
+  <button class="enviar" onclick="enviarPedido()">Enviar pedido</button>
 </div>
 
 <script>
-  // Data automática
   const hoje = new Date();
   const dataFormatada = hoje.toLocaleDateString("pt-BR");
   document.getElementById("dataAtual").innerText = "Data: " + dataFormatada;
 
+  let qtdAtual = 1;
+
+  function alterarQtd(valor) {
+    qtdAtual += valor;
+    if (qtdAtual < 1) qtdAtual = 1;
+    document.getElementById("quantidade").innerText = qtdAtual;
+    calcularTotal();
+  }
+
   function calcularTotal() {
     const preco = Number(document.getElementById("tamanho").value);
-    const qtd = Number(document.getElementById("quantidade").value);
-    const total = preco * qtd;
+    const total = preco * qtdAtual;
 
     document.getElementById("total").innerText =
       "Total: R$ " + total.toFixed(2).replace(".", ",");
@@ -130,21 +172,16 @@
     const nome = document.getElementById("nome").value.trim();
     if (nome === "") {
       alert("Por favor, informe seu nome.");
-      document.getElementById("nome").focus();
       return;
     }
 
     const opcao = document.getElementById("opcao").value || "Não informado";
     const tamanhoSelect = document.getElementById("tamanho");
     const tamanhoTexto = tamanhoSelect.options[tamanhoSelect.selectedIndex].text;
-    const quantidade = document.getElementById("quantidade").value;
-
     let obs = document.getElementById("obs").value.trim();
     if (obs === "") obs = "Completa";
 
-    const totalTexto = document
-      .getElementById("total")
-      .innerText.replace("Total: ", "");
+    const totalTexto = document.getElementById("total").innerText.replace("Total: ", "");
 
     const mensagem =
 `━━━━━━━━━━━━━━━━━━
@@ -152,11 +189,10 @@
 ━━━━━━━━━━━━━━━━━━
 
 *Data:* ${dataFormatada}
-
 *Nome:* ${nome}
 *Opção:* ${opcao}
 *Tamanho:* ${tamanhoTexto}
-*Quantidade:* ${quantidade}
+*Quantidade:* ${qtdAtual}
 *Observação:* ${obs}
 
 ━━━━━━━━━━━━━━━━━━
@@ -172,6 +208,7 @@
 
 </body>
 </html>
+
 
 
 

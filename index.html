@@ -40,7 +40,6 @@
       display: block;
     }
 
-
     input, select, textarea, button {
       width: 100%;
       padding: 12px;
@@ -95,8 +94,10 @@
 
   <label>Tamanho:</label>
   <select id="tamanho" onchange="calcularTotal()">
-    <option value="18">Padrão – R$18,00</option>
-    <option value="14">Menor – R$14,00</option>
+    <option value="14">Menor – R$ 14,00</option>
+    <option value="15">Menor – R$ 15,00</option>
+    <option value="18" selected>Padrão – R$ 18,00</option>
+    <option value="23">Padrão – R$ 23,00</option>
   </select>
 
   <label>Quantidade:</label>
@@ -137,6 +138,7 @@
     const tamanhoSelect = document.getElementById("tamanho");
     const tamanhoTexto = tamanhoSelect.options[tamanhoSelect.selectedIndex].text;
     const quantidade = document.getElementById("quantidade").value;
+
     let obs = document.getElementById("obs").value.trim();
     if (obs === "") obs = "Completa";
 
@@ -156,21 +158,6 @@
 *Tamanho:* ${tamanhoTexto}
 *Quantidade:* ${quantidade}
 *Observação:* ${obs}
-
-━━━━━━━━━━━━━━━━━━
-*TOTAL:* ${totalTexto}
-━━━━━━━━━━━━━━━━━━`;
-
-    const url = "https://wa.me/?text=" + encodeURIComponent(mensagem);
-    window.open(url, "_blank");
-  }
-
-  calcularTotal();
-</script>
-
-</body>
-</html>
-
 
 
 

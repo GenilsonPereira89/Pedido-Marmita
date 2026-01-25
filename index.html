@@ -90,7 +90,7 @@
   <input type="text" id="nome" placeholder="Digite seu nome">
 
   <label>Opção:</label>
-  <input type="text" id="opcao" placeholder="Digite a opção de carne">
+  <input type="text" id="opcao" placeholder="Ex: Frango, Bife, Strogonoff, etc.">
 
   <label>Tamanho:</label>
   <select id="tamanho" onchange="calcularTotal()">
@@ -104,7 +104,7 @@
   <input type="number" id="quantidade" value="1" min="1" onchange="calcularTotal()">
 
   <label>Observação:</label>
-  <textarea id="obs" rows="3" placeholder="Ex: Sem arroz, Sem macarronada, etc."></textarea>
+  <textarea id="obs" rows="3" placeholder="Ex: Sem feijão, Sem arroz, etc."></textarea>
 
   <div class="total" id="total"></div>
 
@@ -159,10 +159,19 @@
 *Quantidade:* ${quantidade}
 *Observação:* ${obs}
 
+━━━━━━━━━━━━━━━━━━
+*TOTAL:* ${totalTexto}
+━━━━━━━━━━━━━━━━━━`;
 
+    const url = "https://wa.me/?text=" + encodeURIComponent(mensagem);
+    window.open(url, "_blank");
+  }
 
+  calcularTotal();
+</script>
 
-
+</body>
+</html>
 
 
 
